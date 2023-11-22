@@ -1,0 +1,71 @@
+import random
+def display_game_status(x,y,z):
+    print(f"Manche win joueur : {x}    Manche win IA : {y}")
+    print(f"Round {z} :")
+
+def get_player_choice() -> int:
+    choice: str = input("Choisissez entre pierre, papier, ciseaux : ")
+
+    if choice == "pierre":
+        numPlayer: int = 1
+        return numPlayer
+    elif choice == "papier":
+        numPlayer: int = 2
+        return numPlayer
+    elif choice == "ciseaux":
+        numPlayer: int = 3
+        return numPlayer
+
+
+def compare_choice(numPlayer: int, numIA, winPlayer, winIA) -> int:
+    # manque un appel de numPlayer et numIA
+    situation = [[1, 1], [1, 2], [1, 3], [2, 1], [2, 2], [2, 3], [3, 1], [3, 2], [3, 3]]
+    condition: int
+    print(situation[1])
+    if situation[0] and situation[4] and situation[8]:
+        print("égalité !")
+        condition = 0
+        return condition
+
+    elif situation[1] and situation[3] and situation[7]:
+        print("Win !")
+        condition = 1
+        return condition
+    else:
+        print("Lose !")
+        condition = -1
+        return condition
+
+def retry():
+    again: str = input('Veux-tu rejouer ?\nType "y" or "n" \n')
+
+    if again == "y":
+        isBeginning = True
+        print("okkkkk")
+    elif again == 'n':
+        isPlayingGame = False
+        print('OK THEN, C CIAO!\n\n\n\n')
+
+def launch_game():
+    isPlayingGame: bool = True
+    while isPlayingGame:
+        maxwin: int = 3
+        round: int = 1
+        winPlayer: int = 0
+        winIA: int = 0
+
+        while winPlayer < maxwin and winIA < maxwin:
+            display_game_status(winPlayer, winIA, round)
+            numPlayer: int = get_player_choice()
+            numIA: int = random.randint(1, 3)
+            condition: int = compare_choice(numPlayer, numIA, winPlayer, winIA)
+            if condition < 0:
+                winIA += 1
+            elif condition > 0:
+                winPlayer += 1
+
+            round += 1
+
+        isPlayingGame = retry()
+
+launch_game()
