@@ -1,51 +1,85 @@
 import random
+import time
+item = ("pierre", "papier", "ciseaux")
+
+def display_table(x) -> str:
+    print("Choisissez un objet parmis ceux presentés")
+    print(item)
+    choice: str = input("")
+    return choice
 def display_game_status(x,y,z):
     print(f"Manche win joueur : {x}    Manche win IA : {y}")
     print(f"Round {z} :")
 
 def get_player_choice() -> int:
-    choice: str = input("Choisissez entre pierre, papier, ciseaux : ")
+    choice: str = display_table(item)
+    while True:
+        choice = choice.casefold()
+        if choice == item[0]:
+            numPlayer: int = 1
+            return numPlayer
+        elif choice == item[1]:
+            numPlayer: int = 2
+            return numPlayer
+        elif choice == item[2]:
+            numPlayer: int = 3
+            return numPlayer
 
-    if choice == "pierre":
-        numPlayer: int = 1
-        return numPlayer
-    elif choice == "papier":
-        numPlayer: int = 2
-        return numPlayer
-    elif choice == "ciseaux":
-        numPlayer: int = 3
-        return numPlayer
+        time.sleep(2.0)
+        print("Mot inconnu")
 
-
-def compare_choice(numPlayer: int, numIA, winPlayer, winIA) -> int:
-    # manque un appel de numPlayer et numIA
-    situation = [[1, 1], [1, 2], [1, 3], [2, 1], [2, 2], [2, 3], [3, 1], [3, 2], [3, 3]]
+def compare_choice(numPlayer: int, numIA) -> int:
     condition: int
-    print(situation[1])
-    if situation[0] and situation[4] and situation[8]:
+    if numIA == numPlayer:
         print("égalité !")
         condition = 0
         return condition
 
-    elif situation[1] and situation[3] and situation[7]:
-        print("Win !")
-        condition = 1
-        return condition
-    else:
-        print("Lose !")
-        condition = -1
-        return condition
+    elif numIA == 1:
+        if numPlayer == 2:
+            print("Votre papier bat sa pierre")
+            condition = 1
+            return condition
+        elif numPlayer == 3:
+            print("Vos ciseaux perdent contre sa pierre")
+            condition = -1
+            return condition
+
+    elif numIA == 2:
+        if numPlayer == 1:
+            print("Votre pierre perd contre son papier")
+            condition = -1
+            return condition
+        elif numPlayer == 3:
+            print("Vos ciseaux gagnent contre son papier")
+            condition = 1
+            return condition
+
+    elif numIA == 3:
+        if numPlayer == 1:
+            print("Votre pierre bat ses ciseaux")
+            condition = 1
+            return condition
+        elif numPlayer == 2:
+            print("Votre papier perd contre ses ciseaux")
+            condition = -1
+            return condition
 
 def retry():
-    again: str = input('Veux-tu rejouer ?\nType "y" or "n" \n')
 
-    if again == "y":
-        isBeginning = True
-        print("okkkkk")
-    elif again == 'n':
-        isPlayingGame = False
-        print('OK THEN, C CIAO!\n\n\n\n')
+    while True:
+        again: str = input('Veux-tu rejouer ?\nEntrez "y" or "n" \n')
 
+        if again == "y":
+            isBeginning = True
+            print("okkkkk")
+            break
+        elif again == 'n':
+            isPlayingGame = False
+            print('OK THEN, C CIAO!\n\n\n\n')
+            break
+
+        print("Veuillez entrer Y ou N")
 def launch_game():
     isPlayingGame: bool = True
     while isPlayingGame:
@@ -58,13 +92,19 @@ def launch_game():
             display_game_status(winPlayer, winIA, round)
             numPlayer: int = get_player_choice()
             numIA: int = random.randint(1, 3)
-            condition: int = compare_choice(numPlayer, numIA, winPlayer, winIA)
+            print(numPlayer)
+            print(numIA)
+            condition: int = compare_choice(numPlayer, numIA)
             if condition < 0:
                 winIA += 1
             elif condition > 0:
                 winPlayer += 1
-
             round += 1
+
+        if winPlayer == maxwin:
+            print("Bravo tu as gagné !")
+        else:
+            print("Dommage tu as perdu !")
 
         isPlayingGame = retry()
 
