@@ -1,0 +1,97 @@
+import random
+
+
+maxwin: int = 3
+PFC: str = ("pierre", "feuille", "ciseaux")
+IAnum: int = random.randint(1, 3)
+
+def Ask_choice_restrict() -> str:
+    while True:
+        #créer un tableau renvoyant une/des valeur(s) associée(s) à celui-ci,si appeler
+        c: int = 0
+        tab = list[int] = [""]*3
+
+        PFC: str = input("Choisissez entre pierre, feuille et ciseaux : ")
+        PFC = tab
+        print(PFC[1])
+
+        if PFC == str("pierre", "feuille", "ciseaux"):
+            return PFC
+
+        else:
+            print("Ce choix ne correspond pas à ce qui a été demander :/ Veuillez recommencer. ")
+
+def ChoiceIA() -> int:
+    IAnum: int = random.randint(1, 3)
+    if IAnum == 1:
+        print("pierre")
+        return IAnum
+    elif IAnum == 2:
+        print("feuille")
+        return IAnum
+    elif IAnum == 3:
+        print("ciseaux")
+        return IAnum
+
+def convers_Choice_in_Num(Choice) -> int:
+    while True:
+        if Choice == "pierre":
+            numPlayer: int = 1
+            return numPlayer
+        elif Choice == "feuille":
+            numPlayer: int = 2
+            return numPlayer
+        elif Choice == "ciseaux":
+            numPlayer: int = 3
+            return numPlayer
+
+def win(numPlayer, IAnum) -> bool:
+    win: bool
+    if numPlayer == IAnum:
+        print("égalité")
+        return win
+
+    elif numPlayer == 1 and IAnum == 2:
+        win = False
+        print("perdu")
+        return win
+    elif numPlayer == 1 and IAnum == 3:
+        win = True
+        print("gagné")
+        return win
+    elif numPlayer == 2 and IAnum == 1:
+        win = True
+        print("gagné")
+        return win
+    elif numPlayer == 2 and IAnum == 3:
+        win = False
+        print("perdu")
+        return win
+
+def Launch_Game():
+
+    IsPlayingGame: bool = True
+    isBeginning: bool = False
+
+    while IsPlayingGame:
+
+        if isBeginning == False:
+            round: int = 1
+            winPlayer: int = 0
+            winIA: int = 0
+            isBeginning = False
+
+            while winPlayer < maxwin and winIA < maxwin:
+
+                print(f"Manche win joueur : {winPlayer}    Manche win IA : {winIA}")
+                print(f"Round {round} :")
+                str_player: str = Ask_choice_restrict()
+                numPlayer: int = convers_Choice_in_Num(str_player)
+                numIA: int = ChoiceIA()
+                win(numPlayer, numIA)
+
+                round = round + 1
+
+                return Launch_Game()
+
+Launch_Game()
