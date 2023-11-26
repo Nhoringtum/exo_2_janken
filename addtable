@@ -1,31 +1,54 @@
 import random
 import time
-item = ("pierre", "papier", "ciseaux")
+authorized_answer: list = ["pierre", "p", "feuille", "f", "ciseaux", "c"]
+possibilities: list = [[authorized_answer[0], authorized_answer[0]], [authorized_answer[0], authorized_answer[2]], [authorized_answer[0], authorized_answer[4]],
+                 [authorized_answer[1], authorized_answer[0]], [authorized_answer[1], authorized_answer[2]], [authorized_answer[1], authorized_answer[4]],
+                 [authorized_answer[2], authorized_answer[0]], [authorized_answer[2], authorized_answer[2]], [authorized_answer[2], authorized_answer[4]],
+                 [authorized_answer[3], authorized_answer[0]], [authorized_answer[3], authorized_answer[2]], [authorized_answer[3], authorized_answer[4]],
+                 [authorized_answer[4], authorized_answer[0]], [authorized_answer[4], authorized_answer[2]], [authorized_answer[4], authorized_answer[4]],
+                 [authorized_answer[5], authorized_answer[0]], [authorized_answer[5], authorized_answer[2]], [authorized_answer[5], authorized_answer[4]]]
 
-def display_table(x) -> str:
-    print("Choisissez un objet parmis ceux presentés")
-    print(item)
-    choice: str = input("")
-    return choice
+# possibilities_short: list = [[possibilities[0]], [possibilities[1]], [possibilities[2]],
+#                [possibilities[3]], [possibilities[4]], [possibilities[5]],
+#                [possibilities[6]], [possibilities[7]], [possibilities[8]],
+#                [possibilities[9]], [possibilities[10]], [possibilities[11]],
+#                [possibilities[12]], [possibilities[13]], [possibilities[14]],
+#                [possibilities[15]], [possibilities[16]], [possibilities[17]]]
+
+result: list = [[0, 0, 1, 0, 0, 1, 1, 0, 0, 1, 0, 0, 0, 1, 0, 0, 1, 0],
+                [0, 1, 0, 0, 1, 0, 0, 0, 1, 0, 0, 1, 1, 0, 0, 1, 0, 0]]
+
+def askInput(authorized_inputs: list [str]) -> str:
+    i: int = 0
+    choice: str = input("").casefold()
+    while i < len(authorized_inputs):
+        if choice == authorized_inputs[i]:
+            return choice
+        i += 1
+        if i == len(authorized_inputs):
+            authorized_inputs = "not valid word"
+            break
+
 def display_game_status(x,y,z):
     print(f"Manche win joueur : {x}    Manche win IA : {y}")
     print(f"Round {z} :")
+    print("\nChoisissez un objet parmis ceux presentés\n")
+    print(authorized_answer)
 
 def get_player_choice() -> int:
-    choice: str = display_table(item)
     while True:
-        choice = choice.casefold()
-        if choice == item[0]:
+        authorized_choice: str = askInput(authorized_answer)
+        if authorized_choice == authorized_answer[0]:
             numPlayer: int = 1
             return numPlayer
-        elif choice == item[1]:
+        elif authorized_choice == authorized_answer[1]:
             numPlayer: int = 2
             return numPlayer
-        elif choice == item[2]:
+        elif authorized_choice == authorized_answer[2]:
             numPlayer: int = 3
             return numPlayer
 
-        time.sleep(2.0)
+        time.sleep(1.0)
         print("Mot inconnu")
 
 def compare_choice(numPlayer: int, numIA) -> int:
@@ -65,10 +88,17 @@ def compare_choice(numPlayer: int, numIA) -> int:
             condition = -1
             return condition
 
-def retry():
+def baseValue() -> tuple[int, int, int, int]:
+    maxwin: int = 3
+    round: int = 1
+    winPlayer: int = 0
+    winIA: int = 0
+    return maxwin, round, winPlayer, winIA
 
+def retry():
+    print('Veux-tu rejouer ?\nEntrez "y" or "n" \n')
     while True:
-        again: str = input('Veux-tu rejouer ?\nEntrez "y" or "n" \n')
+        again: str = input("")
 
         if again == "y":
             isBeginning = True
@@ -79,14 +109,11 @@ def retry():
             print('OK THEN, C CIAO!\n\n\n\n')
             break
 
-        print("Veuillez entrer Y ou N")
+        print("\nVeuillez entrer Y ou N\n")
 def launch_game():
     isPlayingGame: bool = True
     while isPlayingGame:
-        maxwin: int = 3
-        round: int = 1
-        winPlayer: int = 0
-        winIA: int = 0
+        maxwin, round, winPlayer, winIA = baseValue()
 
         while winPlayer < maxwin and winIA < maxwin:
             display_game_status(winPlayer, winIA, round)
