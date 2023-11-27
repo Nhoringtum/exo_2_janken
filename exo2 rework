@@ -1,0 +1,123 @@
+import random
+from _ast import Break
+
+maxwin: int = 3
+PFC: str = ("pierre" or "feuille" or "ciseaux")
+IAnum: int = random.randint(1, 3)
+start: input=str("y" or "n")
+Possibilitées : list[str]= ["2 pizzas", "une tarte", "table IKEA (collection d~hiver)"]
+
+#prend en paramètre un message à afficher, et une liste de mots autorisés
+#demande à l'utilisateur de rentrer quelque chose
+#si c'est bon, on renvoie le mot
+#sinon on boucle
+def Ask_input(Possibilitées):
+
+
+    while True:
+
+
+        PFC: str = input("Faites un choix parmis toutes ces possibilitées : ")
+        print(Possibilitées[])
+
+        print("Ce choix ne correspond pas à ce qui a été demander :/ Veuillez recommencer. ")
+    else:
+        return False
+        pass
+
+
+def Ask_choice_restrict() -> str:
+    while True:
+
+        PFC: str = input("Choisissez entre pierre, feuille et ciseaux : ")
+        if PFC == str("pierre"):
+            return "pierre"
+        elif PFC == str("feuille"):
+            return "feuille"
+        elif PFC == str ("ciseaux"):
+            return "ciseaux"
+        else:
+            print("Ce choix ne correspond pas à ce qui a été demander :/ Veuillez recommencer. ")
+
+def Convers_choice_in_num(Choice) -> int:
+    while True:
+        if Choice == "pierre":
+            numPlayer: int = 1
+            return numPlayer
+        elif Choice == "feuille":
+            numPlayer: int = 2
+            return numPlayer
+        elif Choice == "ciseaux":
+            numPlayer: int = 3
+            return numPlayer
+        else:
+            print("Ce choix ne correspond pas à ce qui a été demander :/ Veuillez recommencer. ")
+
+def Choice_IA() -> int:
+    IAnum: int = random.randint(1, 3)
+    if IAnum == 1:
+        print("pierre")
+        return IAnum
+    elif IAnum == 2:
+        print("feuille")
+        return IAnum
+    elif IAnum == 3:
+        print("ciseaux")
+        return IAnum
+
+def Get_result(numPlayer, IAnum):
+    if numPlayer == IAnum:
+        print("égalité")
+
+    elif numPlayer == 1 and IAnum == 2:
+        print("perdu")
+
+    elif numPlayer == 1 and IAnum == 3:
+        print("gagné")
+
+    elif numPlayer == 2 and IAnum == 1:
+        print("gagné")
+
+    elif numPlayer == 2 and IAnum == 3:
+        print("perdu")
+
+def End_game()->bool:
+    End: str= input("Voulez-vous rejouer ? y/n : ")
+    if End == str("y"):
+        Endgame = False
+        return Launch_Game()
+    elif End == str("n"):
+        Endgame = True
+        return False
+
+def Start()->bool:
+    print("Jeux du ->"
+          "\n------------------------------------------------\n"
+          "------------""Pierre Feuille Ciseaux""------------"
+          "\n------------------------------------------------")
+
+    start: str = input("Voulez-vous jouer ? y/n : ")
+    if start == str("y"):
+        print("Let's go, Prépares-toi bien !")
+    elif start == str("n"):
+        print("Ok, that's your choice :/ ")
+        return Break()
+
+def Break()->bool:
+    while End_game() == True:
+        break
+def Launch_Game() -> bool:
+    Start()
+    IsPlayingGame: bool = True
+    isBeginning: bool = False
+
+    while IsPlayingGame:
+
+        #print(f"Manche win joueur : {winPlayer}    Manche win IA : {winIA}")
+        Str_player: str = Ask_choice_restrict()
+        Num_player: int = Convers_choice_in_num(Str_player)
+        Num_IA: int = Choice_IA()
+        Get_result(Num_player, Num_IA)
+
+
+Launch_Game()
