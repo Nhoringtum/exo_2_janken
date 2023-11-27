@@ -1,8 +1,8 @@
 import random
-
+from _ast import Break
 
 maxwin: int = 3
-PFC: str = ("pierre", "feuille", "ciseaux")
+PFC: str = ("pierre" or "feuille" or "ciseaux")
 IAnum: int = random.randint(1, 3)
 
 def Ask_choice_restrict() -> str:
@@ -10,11 +10,11 @@ def Ask_choice_restrict() -> str:
 
         PFC: str = input("Choisissez entre pierre, feuille et ciseaux : ")
         if PFC == str("pierre"):
-            return PFC
+            return "pierre"
         elif PFC == str("feuille"):
-            return PFC
+            return "feuille"
         elif PFC == str ("ciseaux"):
-            return PFC
+            return "ciseaux"
         else:
             print("Ce choix ne correspond pas à ce qui a été demander :/ Veuillez recommencer. ")
 
@@ -27,8 +27,9 @@ def ChoiceIA() -> int:
         print("feuille")
         return IAnum
     elif IAnum == 3:
-        print("cizeaux")
+        print("ciseaux")
         return IAnum
+
 
 def convers_Choice_in_Num(Choice) -> int:
     while True:
@@ -41,59 +42,66 @@ def convers_Choice_in_Num(Choice) -> int:
         elif Choice == "ciseaux":
             numPlayer: int = 3
             return numPlayer
+        else:
+            print("Ce choix ne correspond pas à ce qui a été demander :/ Veuillez recommencer. ")
 
-def win(numPlayer, IAnum) -> int:
-    winIA: int=0
-    winPlayer: int=0
+def getResult(numPlayer, IAnum):
     if numPlayer == IAnum:
         print("égalité")
-        return win
 
     elif numPlayer == 1 and IAnum == 2:
-        winIA = winIA+1
         print("perdu")
-        return win
 
     elif numPlayer == 1 and IAnum == 3:
-        winPlayer = winPlayer+1
         print("gagné")
-        return win
 
     elif numPlayer == 2 and IAnum == 1:
-        winPlayer = winPlayer+1
         print("gagné")
-        return win
 
     elif numPlayer == 2 and IAnum == 3:
-        winIA = winIA
         print("perdu")
-        return win
 
-def Launch_Game():
+def Endgame()->bool:
+    End: str= input("Voulez-vous rejouer ? y/n : ")
+    if End == str("y"):
+        Endgame = False
+        return End
+    elif End == str("n"):
+        Endgame = True
+        return End
+
+def Launch_Game() -> bool:
+    print("Jeux du ->"
+          "\n------------------------------------------------\n"
+          "Pierre Feuille Ciseaux\n------------------------------------------------")
 
     IsPlayingGame: bool = True
     isBeginning: bool = False
 
     while IsPlayingGame:
 
-        if isBeginning == False:
-            round: int = 1
-            winPlayer: int = 0
-            winIA: int = 0
-            isBeginning = False
+        round: int = 1
+        winPlayer: int = 0
+        winIA: int = 0
 
-            while winPlayer < maxwin and winIA < maxwin:
+        while winPlayer < maxwin or winIA < maxwin:
 
-                print(f"Manche win joueur : {winPlayer}    Manche win IA : {winIA}")
-                print(f"Round {round} :")
+            print(f"Manche win joueur : {winPlayer}    Manche win IA : {winIA}")
+            print(f"Round {round} :")
 
-                str_player: str = Ask_choice_restrict()
-                numPlayer: int = convers_Choice_in_Num(str_player)
-                numIA: int = ChoiceIA()
-                win(numPlayer, numIA)
+            str_player: str = Ask_choice_restrict()
+            numPlayer: int = convers_Choice_in_Num(str_player)
+            numIA: int = ChoiceIA()
+            win(numPlayer, numIA)
+            round = round + 1
 
-                round = round + 1
+            Endgame()
 
-                return Launch_Game()
+            while winPlayer == maxwin or winIA == maxwin :
+                return IsPlayingGame
+                if Endgame == True :
+                    isBeginning = False
+                    Launch_Game = False
+                    return Endgame()
 
 Launch_Game()
