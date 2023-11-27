@@ -1,8 +1,10 @@
 import random
 import time
+import tools
+
 
 # 0 pour pierre, 1 pour feuille, 2 pour ciseaux
-authorized_answer: list[int] = ["pierre", "papier", "ciseaux"]
+authorized_answer: list[str] = ["pierre", "papier", "ciseaux"]
 
 # correspond aux événements, ligne correspond au choix joueurs et colonne celui de l'IA
 result: list[list[str]] = \
@@ -20,17 +22,6 @@ matrice_result: list[list[list[int]]] = \
         [[0, 1], [1, 0], [0, 0]],
     ]
 
-def askInput(authorized_inputs: list [str]) -> str:
-    i: int = 0
-    choice: str = input("").casefold()
-    while i < len(authorized_inputs):
-        if choice == authorized_inputs[i]:
-            return choice
-        i += 1
-        if i == len(authorized_inputs):
-            authorized_inputs = "not valid word"
-            break
-
 def display_game_status(x,y,z):
     print(f"Manche win joueur : {x}    Manche win IA : {y}")
     print(f"Round {z} :")
@@ -39,7 +30,7 @@ def display_game_status(x,y,z):
 
 def get_player_choice() -> int:
     while True:
-        authorized_choice: str = askInput(authorized_answer)
+        authorized_choice: str = tools.ask_input(authorized_answer)
         if authorized_choice == authorized_answer[0]:
             numPlayer: int = 0
             return numPlayer
@@ -54,7 +45,7 @@ def get_player_choice() -> int:
         print("Mot inconnu")
 
 
-def baseValue() -> tuple[int, int, int, int]:
+def base_value() -> tuple[int, int, int, int]:
     maxwin: int = 3
     round: int = 1
     winPlayer: int = 0
@@ -79,7 +70,7 @@ def retry():
 def launch_game():
     isPlayingGame: bool = True
     while isPlayingGame:
-        maxwin, round, winPlayer, winIA = baseValue()
+        maxwin, round, winPlayer, winIA = base_value()
 
         while winPlayer < maxwin and winIA < maxwin:
             display_game_status(winPlayer, winIA, round)
