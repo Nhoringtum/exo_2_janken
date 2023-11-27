@@ -1,66 +1,102 @@
 import random
+import time
 
-isPlayingGame: bool = True
-isBeginning: bool = True
-maxwin: int = 3
+# 0 pour pierre, 1 pour feuille, 2 pour ciseaux
+authorized_answer: list[int] = ["pierre", "papier", "ciseaux"]
 
-while isPlayingGame:
+# correspond aux événements, ligne correspond au choix joueurs et colonne celui de l'IA
+result: list[list[str]] = \
+        [
+            ["egalité", "perdu", "gagné"],
+            ["gagné", "égalité", "perdu"],
+            ["perdu", "gagné", "égalité"],
+        ]
 
-    if isBeginning:
-        round: int = 1
-        winPlayer: int = 0
-        winIA: int = 0
-        isBeginning = False
+# correspond à l'incrémentation du score selon les conditions
+matrice_result: list[list[list[int]]] = \
+    [
+        [[0, 0], [0, 1], [1, 0]],
+        [[1, 0], [0, 0], [0, 1]],
+        [[0, 1], [1, 0], [0, 0]],
+    ]
 
-    while winPlayer < maxwin and winIA < maxwin:
-        print(f"Manche win joueur : {winPlayer}    Manche win IA : {winIA}")
-        print(f"Round {round} :")
-        choice: str = input("Choisissez entre pierre, papier, ciseaux : ")
+def askInput(authorized_inputs: list [str]) -> str:
+    i: int = 0
+    choice: str = input("").casefold()
+    while i < len(authorized_inputs):
+        if choice == authorized_inputs[i]:
+            return choice
+        i += 1
+        if i == len(authorized_inputs):
+            authorized_inputs = "not valid word"
+            break
 
-        if choice == "pierre":
+def display_game_status(x,y,z):
+    print(f"Manche win joueur : {x}    Manche win IA : {y}")
+    print(f"Round {z} :")
+    print("\nChoisissez un objet parmis ceux presentés\n")
+    print(authorized_answer)
+
+def get_player_choice() -> int:
+    while True:
+        authorized_choice: str = askInput(authorized_answer)
+        if authorized_choice == authorized_answer[0]:
+            numPlayer: int = 0
+            return numPlayer
+        elif authorized_choice == authorized_answer[1]:
             numPlayer: int = 1
-        elif choice == "papier":
+            return numPlayer
+        elif authorized_choice == authorized_answer[2]:
             numPlayer: int = 2
-        elif choice == "ciseaux":
-            numPlayer: int = 3
+            return numPlayer
 
-        numIA: int = random.randint(1, 3)
+        time.sleep(1.0)
+        print("Mot inconnu")
 
-        if numIA == 1 and numPlayer == 1:
-            print("Vous avez tous les deux choisis la pierre, égalité !")
-        elif numIA == 2 and numPlayer == 2:
-            print("Vous avez tous les deux choisis le papier, égalité !")
-        elif numIA == 3 and numPlayer == 3:
-            print("Vous avez tous les deux choisis les ciseaux, égalité !")
 
-        elif numIA == 1 and numPlayer == 2:
-            print("Votre papier bat sa pierre")
-            winPlayer = winPlayer + 1
-        elif numIA == 1 and numPlayer == 3:
-            print("Vos ciseaux perdent contre sa pierre")
-            winIA = winIA + 1
+def baseValue() -> tuple[int, int, int, int]:
+    maxwin: int = 3
+    round: int = 1
+    winPlayer: int = 0
+    winIA: int = 0
+    return maxwin, round, winPlayer, winIA
 
-        elif numIA == 2 and numPlayer == 1:
-            print("Votre pierre perd contre son papier")
-            winIA = winIA + 1
-        elif numIA == 2 and numPlayer == 3:
-            print("Vos ciseaux gagnent contre son papier")
-            winPlayer = winPlayer + 1
+def retry():
+    print('Veux-tu rejouer ?\nEntrez "y" or "n" \n')
+    while True:
+        again: str = input("")
 
-        elif numIA == 3 and numPlayer == 1:
-            print("Votre pierre bat ses ciseaux")
-            winPlayer = winPlayer + 1
-        elif numIA == 3 and numPlayer == 2:
-            print("Votre papier perd contre ses ciseaux")
-            winIA = winIA + 1
+        if again == "y":
+            isBeginning = True
+            print("okkkkk")
+            return isBeginning
+        elif again == 'n':
+            isPlayingGame = False
+            print('OK THEN, C CIAO!\n\n\n\n')
+            break
 
-        round += 1
+        print("\nVeuillez entrer Y ou N\n")
+def launch_game():
+    isPlayingGame: bool = True
+    while isPlayingGame:
+        maxwin, round, winPlayer, winIA = baseValue()
 
-    again: str = input('Veux-tu rejouer ?\nType "y" or "n" \n')
+        while winPlayer < maxwin and winIA < maxwin:
+            display_game_status(winPlayer, winIA, round)
+            numPlayer: int = get_player_choice()
+            numIA: int = random.randint(1, 1)
+            winIA = winIA + matrice_result[numPlayer][numIA][1]
+            winPlayer += matrice_result[numPlayer][numIA][0]
+            print(winPlayer)
+            print(winIA)
+            print(result[numPlayer][numIA])
+            round += 1
 
-    if again == "y":
-        isBeginning = True
-        print("okkkkk")
-    elif again == 'n':
-        isPlayingGame = False
-        print('OK THEN, C CIAO!\n\n\n\n')
+        if winPlayer == maxwin:
+            print("Bravo tu as gagné !")
+        else:
+            print("Dommage tu as perdu !")
+
+        isPlayingGame = retry()
+
+launch_game()
