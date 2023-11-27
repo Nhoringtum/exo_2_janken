@@ -84,7 +84,7 @@ def launch_game():
         while winPlayer < maxwin and winIA < maxwin:
             display_game_status(winPlayer, winIA, round)
             numPlayer: int = get_player_choice()
-            numIA: int = random.randint(1, 1)
+            numIA: int = random.randint(0, 2)
             winIA = winIA + matrice_result[numPlayer][numIA][1]
             winPlayer += matrice_result[numPlayer][numIA][0]
             print(winPlayer)
