@@ -1,0 +1,20 @@
+
+Possibilitées: list[str] = ["2 pizzas", "une tarte", "table IKEA (collection d~hiver)"]
+
+
+# prend en paramètre un message à afficher, et une liste de mots autorisés
+# demande à l'utilisateur de rentrer quelque chose
+# si c'est bon, on renvoie le mot
+# sinon on boucle
+def Ask_input(Possibilitées):
+    
+    PFC: str = input("Faites un choix parmis toutes ces possibilitées : ")
+    x : int = 0
+    
+    while x < len(Possibilitées[]):
+            
+        print(Possibilitées[])
+        print("Ce choix ne correspond pas à ce qui a été demander :/ Veuillez recommencer. ")
+        return False
+    
+Ask_input(Possibilitées)
