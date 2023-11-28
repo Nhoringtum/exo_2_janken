@@ -1,1 +1,22 @@
+# Afficher les nombres de 1 à 1000 avec une boucle while
 
+
+# créer un tableau de int avec 50 cases
+
+
+# mettre chaque case à la valeur 5 avec un while
+
+
+# ajouter 12 à chaque cases avec un while
+
+
+# afficher le tableau avec un while
+
+
+
+#chercher si la variable "answer" est dans la liste de mot autorisée
+
+
+    #print OK
+    #print NOT OK
+ 
