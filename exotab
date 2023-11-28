@@ -6,7 +6,7 @@ while i <= 1000:
     i = i+1
 
 # créer un tableau de int avec 50 cases
-Tab: list[int] = []*50
+Tab: list[int] = [""]*50
 
 # mettre chaque case à la valeur 5 avec un while
 Tab[0] = 5
@@ -15,16 +15,18 @@ Tab[2] = 5
 # ...
 Tab[49] = 5
 
-while len(Tab) != 5:
-    Tab[0]= 5
-    Tab[0] = Tab[0] + 1
+x: int = 0
+while x < len(Tab):
+    Tab[x]= 5
+    x=x+1
+
 
 # ajouter 12 à chaque cases avec un while
 
-a: int=12
-while len(Tab) != len(Tab) + a:
-    Tab[0]= Tab[0]+ a
-    Tab[0]=Tab[0]+1
+while x < len(Tab):
+    Tab[x] = 5
+    Tab[x] = 5+12 
+    x = x+1
 
 # afficher le tableau avec un while
 
@@ -33,14 +35,5 @@ while x < len(Tab):
     print(Tab)
     x = x+1
 
-# chercher si la variable "answer" est dans la liste de mot autorisée
 
-
-def Is_in_tab(answer,Tab):
-    for x in Tab:
-        if x == answer:
-            return True
-    return False
-
-# print OK
-# print NOT OK
+#
