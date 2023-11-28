@@ -7,10 +7,10 @@ PFC: str = input("")
 # sinon on boucle
 def Ask_input(Possibilitées):
 
-    PFC: str = input("Faites un choix parmis toutes ces Possibilitées[] : ")
+    PFC: str = input("Faites un choix parmis toutes ces (Possibilitées) : ")
     x : int = 0
 
-    while x < len(Possibilitées[x]):
+    while x < len(Possibilitées):
 
         Possibilitées[0] = "p"
         Possibilitées[1] = "f"
