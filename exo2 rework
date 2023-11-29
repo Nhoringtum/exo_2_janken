@@ -23,6 +23,7 @@ def Ask_input(Possibilitées):
         pass
 
 
+
 def Ask_choice_restrict() -> str:
     while True:
 
@@ -35,6 +36,8 @@ def Ask_choice_restrict() -> str:
             return "ciseaux"
         else:
             print("Ce choix ne correspond pas à ce qui a été demander :/ Veuillez recommencer. ")
+
+
 
 def Convers_choice_in_num(Choice) -> int:
     while True:
@@ -50,6 +53,8 @@ def Convers_choice_in_num(Choice) -> int:
         else:
             print("Ce choix ne correspond pas à ce qui a été demander :/ Veuillez recommencer. ")
 
+
+
 def Choice_IA() -> int:
     IAnum: int = random.randint(1, 3)
     if IAnum == 1:
@@ -61,6 +66,8 @@ def Choice_IA() -> int:
     elif IAnum == 3:
         print("ciseaux")
         return IAnum
+
+
 
 def Get_result(numPlayer, IAnum):
     if numPlayer == IAnum:
@@ -78,6 +85,8 @@ def Get_result(numPlayer, IAnum):
     elif numPlayer == 2 and IAnum == 3:
         print("perdu")
 
+
+
 def End_game()->bool:
     End: str= input("Voulez-vous rejouer ? y/n : ")
     if End == str("y"):
@@ -86,6 +95,8 @@ def End_game()->bool:
     elif End == str("n"):
         Endgame = True
         return False
+
+
 
 def Start()->bool:
     print("Jeux du ->"
@@ -100,9 +111,13 @@ def Start()->bool:
         print("Ok, that's your choice :/ ")
         return Break()
 
+
+
 def Break()->bool:
     while End_game() == True:
         break
+
+
 def Launch_Game() -> bool:
     Start()
     IsPlayingGame: bool = True
@@ -115,6 +130,7 @@ def Launch_Game() -> bool:
         Num_player: int = Convers_choice_in_num(Str_player)
         Num_IA: int = Choice_IA()
         Get_result(Num_player, Num_IA)
+
 
 
 Launch_Game()
