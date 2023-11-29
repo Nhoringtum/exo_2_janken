@@ -1,9 +1,9 @@
 # Afficher les nombres de 1 à 1000 avec une boucle while
 
-i : int = 1
-while i <= 1000:
-    print(i)
-    i = i+1
+# i : int = 1
+# while i <= 1000:
+#    print(i)
+#    i = i+1
 
 # créer un tableau de int avec 50 cases
 Tab: list[int] = [""]*50
@@ -22,10 +22,9 @@ while x < len(Tab):
 
 
 # ajouter 12 à chaque cases avec un while
-
+x: int = 0
 while x < len(Tab):
-    Tab[x] = 5
-    Tab[x] = 5+12 
+    Tab[x]= Tab[x] + 12
     x = x+1
 
 # afficher le tableau avec un while
@@ -36,4 +35,54 @@ while x < len(Tab):
     x = x+1
 
 
-#
+# afficher le plus petit nombre d'une liste
+
+l: list[int] = [14, 13, 5, 2, 17, 9, 0]
+
+i: int = 0
+while i < len(l):
+    if l[i] > 7:
+        print("True")
+    else :
+        print("False")
+
+    i = i + 1
+
+print("-----------------------------------------------------------------------")
+
+i: int = 0
+while i < len(l):
+    if l[i] == 0:
+        print("True Min_number = : ")
+        print(l[i])
+        i = i + 1
+    elif l[i] > 0:
+        b: bool = l[i] > 1
+        print("False")
+        i = i + 1
+
+print("\n\n-----------------------------------------------------------------------\n\n")
+
+
+l: list[int] = [14, 13, 5, 2, 17, 9, 3]
+i: int = 0
+def Min_x () -> int:
+    while i < len(l):
+        Plus_bas : int = -99
+        Plus_haut : int = 22
+        if l[i] == Plus_bas:
+            print("True Min_number (Il n'y a pas de valeur infèrieur à 'Pb' = : ")
+            print(l[i])
+            i = i + 1
+        elif l[i] >= Plus_bas :
+            print("True Min_number = : ")
+            print(l[i])
+            i = i + 1
+        elif l[i] == Plus_haut:
+            print("True Max_number")
+            print(l[i])
+
+
+
+Min_x()
+# print("Le nombre le plus petit est : ", min(l))
