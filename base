@@ -2,8 +2,6 @@ import random
 import time
 import tools
 
-
-# 0 pour pierre, 1 pour feuille, 2 pour ciseaux
 authorized_answer: list[str] = ["pierre", "papier", "ciseaux"]
 
 # correspond aux événements, ligne correspond au choix joueurs et colonne celui de l'IA
@@ -28,6 +26,8 @@ def display_game_status(x,y,z):
     print("\nChoisissez un objet parmis ceux presentés\n")
     print(authorized_answer)
 
+# Fonction qui compare le choix du joueur avec la liste des mots autorisés et le retourne sous forme d'int si 
+# correspondance, sinon tourne en boucle tant que le joueur n'entre pas un mot valide
 def get_player_choice() -> int:
     while True:
         authorized_choice: str = tools.ask_input(authorized_answer)
@@ -45,6 +45,8 @@ def get_player_choice() -> int:
         print("Mot inconnu")
 
 
+# Fonction qui réinitialise des variables au début d'une nouvelle partie. Pour l'instant maxwin est une constante 
+# mais à terme elle sera définie par le joueur en début de partie afin de définir le nombre de manche gagnante.
 def base_value() -> tuple[int, int, int, int]:
     maxwin: int = 3
     round: int = 1
@@ -52,6 +54,7 @@ def base_value() -> tuple[int, int, int, int]:
     winIA: int = 0
     return maxwin, round, winPlayer, winIA
 
+# Fonction qui permet au joueur de rejouer ou de fermer le programme
 def retry():
     print('Veux-tu rejouer ?\nEntrez "y" or "n" \n')
     while True:
@@ -71,11 +74,13 @@ def launch_game():
     isPlayingGame: bool = True
     while isPlayingGame:
         maxwin, round, winPlayer, winIA = base_value()
-
+        
+        # Boucle tant que le joueur ou le bot n'a pas atteint le nombre de manches gagnables maximum
         while winPlayer < maxwin and winIA < maxwin:
             display_game_status(winPlayer, winIA, round)
             numPlayer: int = get_player_choice()
             numIA: int = random.randint(0, 2)
+            # Récupère le tableau répertoriant les points gagnés selon les évenements pour incrémenter ou non le score
             winIA = winIA + matrice_result[numPlayer][numIA][1]
             winPlayer += matrice_result[numPlayer][numIA][0]
             print(winPlayer)
