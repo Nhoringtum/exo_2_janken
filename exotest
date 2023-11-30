@@ -1,0 +1,33 @@
+def Print_first_index(l):
+    First_index : int= 0
+    print (l[First_index])
+def Print_last_index(l) -> None:
+    Last_index : int= len(l)-1
+    print(l[Last_index])
+
+def Print_middle_index(l):
+    Middle_index : int= len(l)//2
+    print (l[Middle_index])
+
+def Print_value_greater_than5(l):
+    
+    
+
+def main():
+    l: list[int] = [14, 13]
+    l2: list[int] = [14, 13, 7, 8, 7, 9]
+    l3: list[int] = [14, 13, 7, 8, 7]
+
+    Print_last_index(l)
+    Print_last_index(l2)
+    Print_last_index(l3)
+    print("\n")
+    Print_first_index(l)
+    Print_first_index(l2)
+    Print_first_index(l3)
+    print("\n")
+    Print_middle_index(l)
+    Print_middle_index(l2)
+    Print_middle_index(l3)
+
+main()
